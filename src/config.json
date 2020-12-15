@@ -1,0 +1,12 @@
+{
+  "type": "live",
+  "API": "https://www.googleapis.com",
+  "searchEndpoint": "/youtube/v3/search",
+  "apiKey": "key here",
+  "requestParams": {
+    "part": "snippet",
+    "type": "video",
+    "eventType": "live",
+    "order": "viewCount"
+  }
+}
