@@ -1,20 +1,18 @@
 import React, { FunctionComponent } from 'react';
-import './Error.css';
+import './Error.scss';
 
 interface IProps {
-  className?: string,
-  rating: number
+  error: string
 }
 
 const Error: FunctionComponent<IProps> = props => {
   const {
-    className,
-    rating = 0
+    error
   } = props;
 
   return (
-    <div className={className}>
-      Hola
+    <div className="">
+      {error}
     </div>
   );
 };

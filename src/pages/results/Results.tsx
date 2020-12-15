@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { requestYoutube } from '../../utils/helper';
+import { requestYoutube, IResponse } from '../../utils/helper';
+import ResultsMock from './loadingMock/ResultsMock';
+import Error from '../error/Error';
+import Card from '../../modules/card/Card';
 import './Results.scss';
 
 interface IProps {
@@ -11,13 +14,9 @@ interface IProps {
 }
 
 interface IState {
-  data: {
-    id: string,
-    thumbnail: string,
-    title: string,
-    viewers: number
-  }[] | unknown,
-  error: string
+  data: IResponse,
+  error: string,
+  loading: boolean
 }
 
 class Results extends Component<IProps, IState> {
@@ -28,11 +27,11 @@ class Results extends Component<IProps, IState> {
         {
           id: '',
           thumbnail: '',
-          title: '',
-          viewers: 0
+          title: ''
         }
       ],
-      error: ''
+      error: '',
+      loading: true
     }
   }
 
@@ -41,18 +40,34 @@ class Results extends Component<IProps, IState> {
 
     requestYoutube(id)
       .then(res => {
-        this.setState({ data: res })
+        this.setState({ data: res, loading: false })
       })
       .catch(error => {
-        this.setState({ error })
+        this.setState({ error, loading: false })
       })
   }
 
   render() {
-    const { data } = this.state;
+    const { data, error, loading } = this.state;
+    if (loading) return <ResultsMock />;
+    if (error) return <Error error={error} />;
+
     console.log(data)
+    const videoCards = Array.isArray(data) && data.map((item) => {
+      return (
+        <Card
+          key={item.id}
+          id={item.id}
+          image={item.thumbnail}
+          title={item.title}
+        />
+      )
+    });
+
     return (
-      <div>RESULTS</div>
+      <div className="results container">
+        {videoCards}
+      </div>
     );
   } 
 };

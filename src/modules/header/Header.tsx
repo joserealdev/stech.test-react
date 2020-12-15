@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import './Header.scss';
 
 interface IProps {
-  title?: string
+  title: string
 }
 
 const Header: FunctionComponent<IProps> = props => {
