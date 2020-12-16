@@ -7,15 +7,13 @@ import Header from './modules/header/Header';
 import './App.css';
 
 const App: FC = () => (
-  <>
-    <BrowserRouter>  
-      <Header title="Youtube live video finder"/>
-      <Route exact path="/results/:q" component={Results} />
-      <Route exact path="/watch/:id" component={Watch} />
-      <Route path="/search" component={Search} exact={true} />
-      <Route exact path="/" render={() => <Redirect to="/search" />} />
-    </BrowserRouter>
-  </>
+  <BrowserRouter>  
+    <Header title="Youtube live video finder"/>
+    <Route exact path="/results/:q" component={Results} />
+    <Route exact path="/watch/:id" component={Watch} />
+    <Route path="/search" component={Search} exact={true} />
+    <Route exact path="/" render={() => <Redirect to="/search" />} />
+  </BrowserRouter>
 );
 
 export default App;
