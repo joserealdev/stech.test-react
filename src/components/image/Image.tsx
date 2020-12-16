@@ -1,5 +1,4 @@
-import React, { FunctionComponent } from 'react';
-import './Image.scss';
+import { FunctionComponent } from 'react';
 
 interface IProps {
   alt?: string,

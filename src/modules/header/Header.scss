@@ -7,9 +7,19 @@
     display: flex;
     align-items: center;
     color: #fff;
+    font-size: large;
 
     @media (min-width: 1281px) {
       height: 96px;
+    }
+  }
+
+  .back {
+    margin-left: 5%;
+    cursor: pointer;
+
+    @media (min-width: 1281px) {
+      margin-left: 2%;
     }
   }
 

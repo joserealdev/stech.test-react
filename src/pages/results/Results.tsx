@@ -8,7 +8,7 @@ import './Results.scss';
 interface IProps {
   match: {
     params: {
-      id: string
+      q: string
     }
   }
 }
@@ -36,9 +36,9 @@ class Results extends Component<IProps, IState> {
   }
 
   componentDidMount() {
-    const { id } = this.props.match.params;
+    const { q } = this.props.match.params;
 
-    requestYoutube(id)
+    requestYoutube(q)
       .then(res => {
         this.setState({ data: res, loading: false })
       })
@@ -52,7 +52,6 @@ class Results extends Component<IProps, IState> {
     if (loading) return <ResultsMock />;
     if (error) return <Error error={error} />;
 
-    console.log(data)
     const videoCards = Array.isArray(data) && data.map((item) => {
       return (
         <Card
@@ -64,9 +63,15 @@ class Results extends Component<IProps, IState> {
       )
     });
 
+    const notFound = (!videoCards || videoCards.length < 1) ?
+      (
+        <div>No videos found containing {this.props.match.params.q}</div>
+      )
+      : null;
+
     return (
       <div className="results container">
-        {videoCards}
+        {notFound || videoCards}
       </div>
     );
   } 

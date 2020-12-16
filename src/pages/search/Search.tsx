@@ -3,9 +3,15 @@ import { useHistory } from "react-router-dom";
 import './Search.scss';
 
 const Search: FunctionComponent = () => {
-  const history = useHistory();
   const [searchText, setSearchText] = useState<string>('');
-  const [showError, setShowError] = useState<boolean>(true);
+  const [hasError, setHasError] = useState<boolean>(true);
+  const history = useHistory();
+
+  const keyHandler = (target: React.KeyboardEvent<HTMLInputElement>) => {
+    if (target.key === 'Enter' && !hasError) {
+      history.push(`/results/${searchText}`);
+    }
+  };
 
   return (
     <div className="search container">
@@ -14,16 +20,19 @@ const Search: FunctionComponent = () => {
           className="input"
           type="text"
           onChange={e => {
-            setShowError(e.target.value.trim().length < 2);
+            setHasError(e.target.value.trim().length < 2);
             setSearchText(e.target.value)
           }}
+          onKeyPress={keyHandler}
           value={searchText}
         />
-        <button className="button" onClick={() => history.push(`/results/${searchText}`)}>
+        <button className="button" onClick={() => {
+          if (!hasError) history.push(`/results/${searchText}`);
+        }}>
           <i className="fa fa-search" />
         </button>
       </div>
-      {showError && <div className="error">* Length has to be more than 1</div>}
+      {hasError && <div className="error">* Length has to be more than 1 character</div>}
     </div>
   );
 };

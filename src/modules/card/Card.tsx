@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
+import { useHistory } from "react-router-dom";
 import Image from '../../components/image/Image';
 import './Card.scss';
 
@@ -10,9 +11,10 @@ interface IProps {
 
 const Card: FunctionComponent<IProps> = props => {
   const { id, title, image } = props;
+  const history = useHistory();
 
   return (
-    <div className="card container">
+    <div key={id} className="card container" onClick={() => history.push(`/watch/${id}`)}>
       <Image
         alt={title}
         className="image"
